@@ -37,6 +37,21 @@ const show = (req, res) => {
   //   description: `Post con id ${id}`,
   //   data: post,
   // });
+
+  const id = parseInt(req.params.id);
+
+  const sql = "SELECT * FROM posts WHERE id = ?";
+
+  connection.query(sql, [id], (err, results) => {
+    if (err) return res.status(500).json({ error: "Database query failed" });
+    if (results.length === 0)
+      return res.status(404).json({ error: "Post not found" });
+
+    res.json({
+      data: results,
+      status: 200,
+    });
+  });
 };
 
 const store = (req, res) => {
