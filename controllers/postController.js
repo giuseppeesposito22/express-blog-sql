@@ -127,7 +127,7 @@ const destroy = (req, res) => {
       return res.status(404).json({ error: "Post not found" });
     }
 
-    res.status(204);
+    res.sendStatus(204);
   });
 };
 
