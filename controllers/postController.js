@@ -1,5 +1,6 @@
+const connection = require("../data/db");
 // importazione della lista dei post
-let { posts } = require("../data/host_port");
+// let { posts } = require("../data/host_port");
 
 const index = (req, res) => {
   // const postTagFilter = req.query.tags;
@@ -11,6 +12,18 @@ const index = (req, res) => {
   //   description: "Lista dei post",
   //   data: postsFiltered,
   // });
+
+  const sql = "SELECT * FROM posts";
+
+  connection.query(sql, (err, results) => {
+    if (err) return res.status(500).json({ error: "Database quesry failed" });
+    console.log(results);
+
+    res.json({
+      data: results,
+      status: 200,
+    });
+  });
 };
 
 const show = (req, res) => {
